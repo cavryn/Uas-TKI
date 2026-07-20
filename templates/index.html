@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Classification & Retrieval - Dokumen Polio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Sentiment Classification & Retrieval System</h1>
+            <p class="subtitle">Klasifikasi dan Temu Kembali Sentimen Dokumen Komentar Kasus Polio</p>
+            <div class="tech-info">
+                <span class="badge">SBERT</span>
+                <span class="badge">Scikit-learn</span>
+                <span class="badge">Cosine Similarity</span>
+            </div>
+        </header>
+
+        <div id="statusBar" class="status-bar loading">
+            <div class="status-content">
+                <div class="status-indicator"></div>
+                <span id="statusText">Initializing system...</span>
+            </div>
+            <div id="statsDisplay" class="stats-display" style="display: none;">
+                <span id="docCount"></span>
+                <span id="sentimentDist"></span>
+            </div>
+        </div>
+
+        <section class="search-section">
+            <div class="search-container">
+                <input type="text" 
+                       id="searchInput" 
+                       class="search-input" 
+                       placeholder="Masukkan query untuk klasifikasi sentimen..."
+                       disabled>
+                <button id="searchButton" class="search-button" disabled>Classify</button>
+            </div>
+
+            <div class="advanced-options">
+                <div class="option-group">
+                    <label for="topK">Documents to analyze:</label>
+                    <select id="topK" class="option-select">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="example-queries">
+                <span class="example-label">Example queries:</span>
+                <div id="exampleContainer" class="example-container"></div>
+            </div>
+        </section>
+
+        <section id="resultsSection" class="results-section" style="display: none;">
+            <div class="sentiment-result-card" id="sentimentCard">
+                <h2>Hasil Klasifikasi Sentimen</h2>
+                <div class="sentiment-main">
+                    <div class="sentiment-badge-container">
+                        <span id="sentimentBadge" class="sentiment-badge"></span>
+                    </div>
+                    <div class="sentiment-details">
+                        <p class="query-text">Query: <strong id="queryText"></strong></p>
+                        <p class="confidence-text">Confidence: <strong id="confidenceText"></strong></p>
+                    </div>
+                </div>
+                
+                <div class="sentiment-votes">
+                    <h3>Voting dari Dokumen Relevan:</h3>
+                    <div class="votes-container">
+                        <div class="vote-item vote-positive">
+                            <span class="vote-label">Baik (Positif)</span>
+                            <span class="vote-count" id="votePositive">0</span>
+                        </div>
+                        <div class="vote-item vote-negative">
+                            <span class="vote-label">Buruk (Negatif)</span>
+                            <span class="vote-count" id="voteNegative">0</span>
+                        </div>
+                        <div class="vote-item vote-neutral">
+                            <span class="vote-label">Netral</span>
+                            <span class="vote-count" id="voteNeutral">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explanation-section">
+                    <h3>Penjelasan:</h3>
+                    <pre id="explanationText" class="explanation-text"></pre>
+                </div>
+            </div>
+
+            <div class="documents-section">
+                <h2>Dokumen Pendukung</h2>
+                <div id="documentsContainer" class="results-container"></div>
+            </div>
+        </section>
+
+        <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+            <div class="spinner"></div>
+            <p>Analyzing sentiment...</p>
+        </div>
+
+        <footer class="footer">
+            <p>Sentiment Classification using SBERT and Scikit-learn Cosine Similarity</p>
+            <p class="footer-meta">Sistem Klasifikasi dan Temu Kembali Sentimen | 2026</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
